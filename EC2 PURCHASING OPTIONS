@@ -1,0 +1,303 @@
+1. EC2 Purchasing Options
+A. On-Demand Instances
+
+Default purchasing model.
+
+Pay per second/hour, no long-term commitment.
+
+Best for:
+
+Unpredictable workloads
+
+Testing, development, short-term applications
+
+Highest cost compared to other options.
+
+B. Reserved Instances (RI)
+
+Commit for 1-year or 3-year period.
+
+Savings: Up to 75% compared to On-Demand.
+
+Best for steady, predictable workloads.
+
+RI Payment Options
+
+All Upfront (AURI)
+
+Pay entire amount at once.
+
+Maximum discount.
+
+Partial Upfront (PURI)
+
+Pay some upfront, rest monthly.
+
+Medium discount.
+
+No Upfront (NURI)
+
+Pay monthly, no upfront cost.
+
+Lowest discount among RIs.
+
+Key Exam Notes
+
+Payment option does NOT affect performance.
+
+RI types:
+
+Standard RI → best discount
+
+Convertible RI → change instance types within a family
+
+C. Spot Instances
+
+Uses unused EC2 capacity.
+
+Savings: Up to 90%.
+
+Can be interrupted with 2-minute warning.
+
+Best for:
+
+Fault-tolerant, flexible workloads
+
+Batch jobs
+
+Big data
+
+Containers
+
+CI/CD jobs
+
+Not good for:
+
+Critical workloads
+
+Stateful applications
+
+2. EC2 Saving Plans
+What Are Saving Plans?
+
+Flexible pricing model offering up to 72% savings for committing to a $ per hour usage amount for 1 or 3 years.
+
+Applies automatically to:
+
+EC2
+
+Fargate
+
+Lambda
+
+Benefits
+
+High savings
+
+Flexibility across regions, sizes, families (depending on plan type)
+
+Simpler than RIs
+
+Types of Saving Plans
+A. Compute Saving Plans
+
+Most flexible
+
+Applies to:
+
+Any EC2 instance, any region, any family
+
+Fargate
+
+Lambda
+
+Equivalent to Convertible RIs but more flexible.
+
+B. EC2 Instance Saving Plans
+
+Applies to specific instance family within a region (e.g., m5).
+
+You can change:
+
+Size (m5.large → m5.xlarge)
+
+OS
+
+Tenancy
+
+Cannot change family (must stay within m5).
+
+C. SageMaker Saving Plans
+
+Save up to 64% on Amazon SageMaker instance usage.
+
+Saving Plan Payment Options
+
+Same as RIs:
+
+All Upfront
+
+Partial Upfront
+
+No Upfront
+
+Cannot be cancelled or refunded.
+
+3. EC2 Tenancy Models
+A. Shared Tenancy (Default)
+
+Multiple customers share physical hardware using virtualization.
+
+Lowest cost.
+
+Suitable for most workloads.
+
+B. Dedicated Tenancy
+1. Dedicated Instances
+
+Run on hardware isolated to a single customer.
+
+AWS chooses placement.
+
+Charged per instance + dedicated instance fee.
+
+Good for compliance needs.
+
+2. Dedicated Hosts
+
+Entire physical server allocated to customer.
+
+Customers manage:
+
+Instance placement
+
+Licensing (e.g., BYOL for Oracle, Windows Server)
+
+Best for:
+
+Software license compliance
+
+Visibility of sockets/cores
+
+Full infrastructure control
+
+Key Differences (Exam Focus)
+Feature	Dedicated Host	Dedicated Instance
+Control of physical server	✔ Full	✖ None
+Best for licensing (BYOL)	✔	✖
+Pricing	Pay per host	Pay per instance
+Visibility of hardware	✔ Yes	✖ No
+Important
+
+Tenancy cannot be changed after instance launch.
+
+✅ PREDICTED EXAM MCQs (High Probability)
+MCQ 1
+
+A company needs the cheapest option for fault-tolerant workloads that can be interrupted. Which option is best?
+
+A. On-Demand
+B. Reserved Instances
+C. Spot Instances
+D. Dedicated Instances
+
+✔ Answer: C. Spot Instances
+
+MCQ 2
+
+What is the main benefit of All Upfront Reserved Instances?
+
+A. Highest flexibility
+B. Lowest commitment
+C. Highest discount
+D. Can be canceled anytime
+
+✔ Answer: C. Highest discount
+
+MCQ 3
+
+Which saving plan allows switching between any instance family and region?
+
+A. EC2 Instance Saving Plan
+B. Compute Saving Plan
+C. SageMaker Saving Plan
+D. Convertible RI
+
+✔ Answer: B. Compute Saving Plan
+
+MCQ 4
+
+Which tenancy type is required for Bring-Your-Own-Licenses (BYOL) with compliance mapping to physical hardware?
+
+A. Shared
+B. Dedicated Instances
+C. Dedicated Host
+D. Spot Instance
+
+✔ Answer: C. Dedicated Host
+
+MCQ 5
+
+A workload runs 24/7 with predictable usage for the next 3 years. Which option offers maximum savings?
+
+A. Spot
+B. On-Demand
+C. Standard Reserved Instance (All Upfront)
+D. Dedicated Instance
+
+✔ Answer: C. Standard Reserved Instance (All Upfront)
+
+MCQ 6
+
+A user is interrupted with a 2-minute warning on their EC2 instance. What pricing model are they using?
+
+A. On-Demand
+B. Reserved
+C. Spot
+D. Dedicated Instance
+
+✔ Answer: C. Spot
+
+MCQ 7
+
+Which of the following is TRUE about EC2 Saving Plans?
+
+A. They require choosing a specific AZ.
+B. They are refundable.
+C. They apply automatically to compute usage.
+D. They cannot be used with Lambda.
+
+✔ Answer: C. They apply automatically to compute usage.
+
+MCQ 8
+
+Which option allows the SAME instance family but different sizes?
+
+A. EC2 Instance Saving Plan
+B. Compute Saving Plan
+C. Spot Instances
+D. Dedicated Instances
+
+✔ Answer: A. EC2 Instance Saving Plan
+
+MCQ 9
+
+Which tenancy model is most cost-effective for general workloads?
+
+A. Dedicated Host
+B. Dedicated Instance
+C. Shared Tenancy
+D. Capacity Reservation
+
+✔ Answer: C. Shared Tenancy
+
+MCQ 10
+
+A company wants fully isolated hardware but doesn’t want to manage physical host capacity. Which option fits?
+
+A. Dedicated Host
+B. Dedicated Instance
+C. Shared Tenancy
+D. Spot Instance
+
+✔ Answer: B. Dedicated Instance
