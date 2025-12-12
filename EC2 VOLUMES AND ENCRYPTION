@@ -1,0 +1,170 @@
+1. Amazon EBS (Elastic Block Store)
+
+EBS = Block-level storage (important exam point)
+S3 = Object storage
+
+Key Properties
+
+Durable block storage for EC2 instances
+
+Behaves like a physical hard drive connected to EC2
+
+Persists independently from the instance (unless “Delete on termination” is enabled)
+
+Can change size, IOPS, and volume type while the volume is in use (for modern instances)
+
+Can attach multiple EBS volumes to a single EC2 instance
+
+Volume & EC2 instance must be in the same Availability Zone
+
+Multi-Attach supported only for specific volume types (e.g., io1/io2)
+→ Allows the same EBS volume to attach to multiple EC2 instances
+
+2. EBS Encryption
+How Encryption Works
+
+Uses AWS KMS Keys (Customer Managed Key or AWS Managed Key)
+
+Uses AES-256 encryption (VERY IMPORTANT EXAM FACT)
+
+Encryption is handled by EC2 host, not by the volume itself
+
+What Gets Encrypted
+
+Data at rest inside the volume
+
+Data in transit between EC2 and EBS
+
+All snapshots created from encrypted volumes
+
+All volumes created from encrypted snapshots
+
+Mixing Volumes
+
+You can attach encrypted + unencrypted volumes to the same instance
+
+How to Encrypt an Unencrypted Volume
+
+Process:
+
+Take a snapshot
+
+Convert snapshot to encrypted using KMS
+
+Create new encrypted volume from that snapshot
+
+3. EC2 Key Pairs & SSH Access
+What is a Key Pair?
+
+A key pair = Private key (.pem) + Public key
+Used to authenticate to EC2 via SSH.
+
+AWS stores the public key
+
+You store the private key
+
+Private key replaces passwords → much more secure
+
+VERY IMPORTANT EXAM POINTS
+
+Anyone with your private key can SSH into your instance → Keep secure
+
+NEVER upload private keys to GitHub
+
+AWS CANNOT recover your private key
+→ If lost, you must stop instance, detach root volume, modify authorized_keys file, etc.
+
+When an EC2 instance is launched:
+→ The public key is added to ~/.ssh/authorized_keys
+
+Using SSH
+ssh -i mykey.pem ec2-user@<public-ip>
+
+⭐ Summary Table (Exam-Worthy)
+Topic	Key Points
+EBS Type	Block-level, persistent storage
+Max Flexibility	Resize, change IOPS, change type while live
+Multi-Attach	Attach one EBS volume to multiple EC2s
+Encryption Algorithm	AES-256
+Encryption Done By	EC2 host (not volume)
+Snapshot Behavior	Encrypted snapshots → encrypted volumes
+SSH Key Pairs	Public key stored by AWS; private key stored by you
+Private Key Recovery	Impossible to recover
+Authorized Keys	Public key added to ~/.ssh/authorized_keys
+✅ PREDICTED SAA-C03 MCQs (High Probability)
+MCQ 1
+
+Which statement about EBS encryption is TRUE?
+
+A. Encryption is performed on the EBS volume.
+B. Encryption uses the AES-128 algorithm.
+C. Snapshots created from encrypted volumes are also encrypted.
+D. Encrypted volumes cannot be attached to unencrypted-instance types.
+
+✔ Correct Answer: C
+
+MCQ 2
+
+You lose your .pem private key for an EC2 instance. What can you do?
+
+A. Recover the key from AWS Console.
+B. Reset the private key using EC2.
+C. There is no way to recover the private key.
+D. Call AWS Support to generate a new key.
+
+✔ Correct Answer: C
+
+MCQ 3
+
+Which encryption algorithm is used for EBS volumes?
+
+A. RSA-2048
+B. SHA-256
+C. AES-256
+D. DES
+
+✔ Correct Answer: C
+
+MCQ 4
+
+Which statement is TRUE about EBS volumes?
+
+A. They are object storage like S3.
+B. They persist even after the EC2 instance is terminated (if not configured to delete).
+C. You cannot resize an EBS volume when in use.
+D. They can be attached across different Availability Zones.
+
+✔ Correct Answer: B
+
+MCQ 5
+
+What happens when an instance with a specified key pair boots?
+
+A. The private key is stored inside the instance.
+B. The public key is placed into the authorized_keys file.
+C. The key pair is regenerated automatically.
+D. You must manually upload the key.
+
+✔ Correct Answer: B
+
+MCQ 6
+
+Which EBS feature allows a single volume to be attached to multiple EC2 instances?
+
+A. Multi-Read
+B. EFS
+C. Multi-Attach
+D. Multi-Volume Linking
+
+✔ Correct Answer: C
+
+MCQ 7
+
+A snapshot is created from an unencrypted EBS volume, then encryption is applied. What will happen to a new volume created from this snapshot?
+
+A. It must be unencrypted
+B. It will be encrypted
+C. It depends on instance type
+D. It will inherit encryption only if same AZ
+
+✔ Correct Answer: B
