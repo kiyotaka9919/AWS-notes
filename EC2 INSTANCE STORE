@@ -1,0 +1,213 @@
+What is EC2 Instance Store?
+
+Ephemeral (temporary) block-level storage
+
+Physically attached to the EC2 host machine
+
+Data is lost when:
+
+Instance is stopped
+
+Instance is terminated
+
+Host hardware fails
+
+📌 Key Contrast (EXAM FAVORITE):
+
+EBS → Persistent storage
+
+Instance Store → Ephemeral storage
+
+2. Why Use Instance Store?
+Performance
+
+Very low latency
+
+Very high IOPS / throughput
+
+Faster than EBS for temporary data
+
+No network overhead (local storage)
+
+3. Use Cases
+
+Best suited for temporary, non-critical data:
+
+Cache
+
+Buffers
+
+Scratch space
+
+Temporary files
+
+Intermediate computation results
+
+⚠️ Applications must be able to regenerate data.
+
+4. Important Characteristics (EXAM POINTS)
+Feature	Instance Store
+Storage Type	Block
+Persistence	❌ No
+Lifecycle	Tied to EC2 instance
+Performance	Very high
+Resize	❌ Not possible
+Backup	❌ No snapshots
+Boot Volume	❌ Not recommended
+Availability	Not on all instance types
+5. Boot Volume Limitation
+
+Instance Store is NOT used as a boot volume
+
+Booting from instance store would be slow and unreliable
+
+EC2 instances typically boot from EBS
+
+6. Instance Type Dependency
+
+Not all EC2 instance types support instance store
+
+Capacity and performance:
+
+Fixed at launch
+
+Depends on instance type
+
+Must check:
+
+Instance specifications
+
+Block device mapping at launch
+
+7. Design Considerations
+
+Never store important or persistent data
+
+Implement:
+
+Backup strategies
+
+Data regeneration mechanisms
+
+Best paired with:
+
+EBS
+
+S3
+
+DynamoDB
+
+8. Summary (1-Line Exam Tip)
+
+EC2 Instance Store = high-performance, temporary, local block storage that is lost when the instance stops or terminates.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which statement about EC2 Instance Store is TRUE?
+
+A. Data persists after instance termination
+B. It is object storage
+C. Data is lost when the instance stops
+D. It supports snapshots
+
+✅ Answer: C
+
+MCQ 2
+
+Which workload is BEST suited for EC2 Instance Store?
+
+A. Relational database
+B. Backup storage
+C. Cache or scratch data
+D. Long-term file storage
+
+✅ Answer: C
+
+MCQ 3
+
+What happens to data in an EC2 Instance Store when the instance is stopped?
+
+A. Data is retained
+B. Data is encrypted
+C. Data is lost
+D. Data is moved to EBS
+
+✅ Answer: C
+
+MCQ 4
+
+Which storage option offers the LOWEST latency?
+
+A. Amazon S3
+B. Amazon EBS
+C. EC2 Instance Store
+D. Amazon EFS
+
+✅ Answer: C
+
+MCQ 5
+
+Which EC2 storage type is physically attached to the host?
+
+A. EFS
+B. S3
+C. EBS
+D. Instance Store
+
+✅ Answer: D
+
+MCQ 6
+
+Can you resize an EC2 Instance Store volume after launch?
+
+A. Yes
+B. Only if instance is stopped
+C. Only with snapshots
+D. No
+
+✅ Answer: D
+
+MCQ 7
+
+Which is a key limitation of EC2 Instance Store?
+
+A. High cost
+B. Low performance
+C. Data is ephemeral
+D. Requires network access
+
+✅ Answer: C
+
+MCQ 8
+
+Which EC2 feature must be checked before using Instance Store?
+
+A. IAM role
+B. Instance type support
+C. VPC peering
+D. Security group
+
+✅ Answer: B
+
+MCQ 9
+
+Why should Instance Store not be used as a boot volume?
+
+A. High cost
+B. Slow boot and non-persistent
+C. Limited AZ support
+D. Encryption issues
+
+✅ Answer: B
+
+MCQ 10
+
+Which statement correctly compares EBS and Instance Store?
+
+A. Both are ephemeral
+B. Both are object storage
+C. EBS is persistent, Instance Store is ephemeral
+D. Instance Store supports snapshots
+
+✅ Answer: C
