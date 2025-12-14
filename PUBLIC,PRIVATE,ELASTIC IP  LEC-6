@@ -1,0 +1,244 @@
+IP Addressing in a VPC
+
+IP addresses enable communication:
+
+Between resources inside the VPC
+
+Between VPC resources and the internet
+
+EC2 uses IPv4 by default
+
+A VPC must be created with an IPv4 CIDR block (e.g., /16)
+
+2. Private IP Address
+
+Assigned to every EC2 instance
+
+Used for internal communication inside the VPC
+
+❌ Not reachable from the internet
+
+Does not change during instance lifetime
+
+📌 EXAM TIP:
+Private IPs are used for east-west traffic (instance-to-instance).
+
+3. Public IPv4 Address
+
+Required for internet access
+
+Assigned from AWS public IP pool
+
+✔ Reachable over the internet
+
+❌ Not static
+
+Changes when instance is stopped & started
+
+Released when instance is terminated
+
+Key Exam Facts
+
+Not associated with your AWS account
+
+Cannot manually attach/detach
+
+Controlled by:
+
+Subnet “Auto-assign public IP”
+
+Instance launch settings
+
+4. Elastic IP Address (EIP)
+What is an Elastic IP?
+
+Static, persistent public IPv4 address
+
+Allocated to your AWS account
+
+Can be:
+
+Associated
+
+Disassociated
+
+Re-associated to another instance
+
+Why Use Elastic IPs?
+
+High availability & failover
+
+IP does not change
+
+Useful with Route 53
+
+📌 Failover Scenario (EXAM FAVORITE):
+
+EIP moves from failed EC2 → healthy EC2
+
+End users see no outage
+
+Important Elastic IP Rules
+
+When EIP is associated:
+
+Instance’s public IPv4 is released
+
+❌ Cannot convert public IP → Elastic IP
+
+❌ Charged hourly if NOT attached to a running instance
+
+Works only with IPv4
+
+5. IPv4 vs IPv6 (VERY IMPORTANT FOR EXAM)
+Feature	IPv4	IPv6
+VPC CIDR size	/16 to /28	Fixed /56
+Subnet CIDR	/16 to /28	Fixed /64
+Public vs Private	✔ Yes	❌ No
+NAT required	✔ Yes	❌ No
+Elastic IP support	✔ Yes	❌ No
+Internet reachable	Public IPv4 only	All IPv6
+
+📌 EXAM GOLD POINT:
+👉 All IPv6 addresses are public
+
+6. Internet Connectivity Requirements
+
+To access the internet:
+
+Internet Gateway (IGW) attached to VPC
+
+Route table entry:
+
+0.0.0.0/0 → IGW (IPv4)
+
+::/0 → IGW (IPv6)
+
+Security Group allows traffic
+
+7. Controlling Internet Access
+
+Security Groups
+
+Network ACLs
+
+Route Tables
+
+For IPv6:
+
+Access controlled ONLY via routing + security rules
+
+8. One-Line Summary (EXAM READY)
+
+Private IP = internal, Public IP = temporary internet access, Elastic IP = static public IPv4 for failover & persistence.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which IP address type changes when an EC2 instance is stopped and started?
+
+A. Private IP
+B. Elastic IP
+C. Public IP
+D. IPv6 address
+
+✅ Answer: C
+
+MCQ 2
+
+Which IP address type is persistent across instance restarts?
+
+A. Public IP
+B. Private IP
+C. Elastic IP
+D. IPv6
+
+✅ Answer: C
+
+MCQ 3
+
+Which statement about IPv6 in AWS is TRUE?
+
+A. IPv6 addresses are private
+B. Elastic IPs support IPv6
+C. IPv6 requires NAT
+D. All IPv6 addresses are public
+
+✅ Answer: D
+
+MCQ 4
+
+What happens if an Elastic IP is not associated with a running instance?
+
+A. It is free
+B. It is released automatically
+C. You are charged
+D. It becomes private
+
+✅ Answer: C
+
+MCQ 5
+
+Which IP address is NOT reachable from the internet?
+
+A. Elastic IP
+B. Public IPv4
+C. Private IPv4
+D. IPv6
+
+✅ Answer: C
+
+MCQ 6
+
+Which AWS service enables internet connectivity for a VPC?
+
+A. NAT Gateway
+B. Internet Gateway
+C. Route 53
+D. Elastic IP
+
+✅ Answer: B
+
+MCQ 7
+
+A company needs a static public IP for failover between EC2 instances. What should they use?
+
+A. Public IP
+B. Private IP
+C. Elastic IP
+D. IPv6
+
+✅ Answer: C
+
+MCQ 8
+
+Which IP address type is allocated from Amazon’s pool and not owned by your account?
+
+A. Elastic IP
+B. Public IPv4
+C. Private IPv4
+D. IPv6
+
+✅ Answer: B
+
+MCQ 9
+
+Can Elastic IPs be used with IPv6?
+
+A. Yes
+B. Only in public subnets
+C. Only with NAT
+D. No
+
+✅ Answer: D
+
+MCQ 10
+
+Which CIDR size is FIXED for an IPv6 subnet?
+
+A. /56
+B. /48
+C. /64
+D. /28
+
+✅ Answer: C
