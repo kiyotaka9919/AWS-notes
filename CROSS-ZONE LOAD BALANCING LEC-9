@@ -1,0 +1,204 @@
+. What is Cross-Zone Load Balancing?
+
+A feature of AWS Elastic Load Balancing (ELB)
+
+Distributes incoming traffic evenly across targets in all enabled Availability Zones
+
+Prevents one AZ from becoming a bottleneck
+
+Improves availability, fault tolerance, and performance
+
+2. How Cross-Zone Load Balancing Works
+
+ELB has load balancer nodes in each AZ
+
+With cross-zone enabled:
+
+Each load balancer node can send traffic to targets in all AZs
+
+If one AZ becomes unavailable:
+
+Traffic is automatically routed to healthy instances in other AZs
+
+📌 Exam Concept:
+Traffic distribution is balanced across all instances, not just within the same AZ.
+
+3. Without vs With Cross-Zone Load Balancing
+Without Cross-Zone
+
+Each AZ handles traffic only for instances in that AZ
+
+Uneven traffic if AZs have different number of instances
+
+With Cross-Zone
+
+Traffic is distributed evenly across all instances in all AZs
+
+Better utilization of instances
+
+4. Benefits of Cross-Zone Load Balancing
+✅ Improved Availability
+
+Protects against AZ failure
+
+No single AZ overload
+
+✅ Improved Performance
+
+Even traffic distribution
+
+Reduced latency & better response times
+
+✅ Better Resource Utilization
+
+All EC2 instances receive traffic evenly
+
+Avoids idle instances in low-traffic AZs
+
+5. Limitations / Considerations
+⚠️ Increased Cost
+
+You must run:
+
+Load balancer nodes
+
+EC2 instances
+
+In multiple AZs
+
+Cross-AZ data transfer may add cost (exam-relevant nuance)
+
+⚠️ Architecture Complexity
+
+Requires:
+
+Multi-AZ design
+
+Proper health checks
+
+Correct subnet setup
+
+6. Cross-Zone Load Balancing & ELB Types (EXAM FAVORITE)
+Load Balancer	Cross-Zone Default
+ALB	✔ Enabled by default
+NLB	❌ Disabled by default (can be enabled)
+CLB	❌ Disabled by default
+GWLB	✔ Enabled by default
+
+📌 Exam Tip:
+👉 ALB = cross-zone ON by default
+
+7. One-Line Exam Summary
+
+Cross-Zone Load Balancing evenly distributes traffic across all targets in all Availability Zones, improving availability and performance.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+What is the main purpose of cross-zone load balancing?
+
+A. Reduce latency within a subnet
+B. Distribute traffic evenly across AZs
+C. Encrypt traffic between ELB and targets
+D. Reduce number of EC2 instances
+
+✅ Answer: B
+
+MCQ 2
+
+With cross-zone load balancing enabled, traffic is distributed:
+
+A. Only within the same AZ
+B. Only to the closest instance
+C. Evenly across all instances in all AZs
+D. Only to instances in public subnets
+
+✅ Answer: C
+
+MCQ 3
+
+Which load balancer has cross-zone load balancing enabled by default?
+
+A. Classic Load Balancer
+B. Network Load Balancer
+C. Application Load Balancer
+D. None of the above
+
+✅ Answer: C
+
+MCQ 4
+
+What happens if one Availability Zone becomes unavailable?
+
+A. ELB stops routing traffic
+B. Application becomes unavailable
+C. Traffic is routed to other AZs
+D. Load balancer fails
+
+✅ Answer: C
+
+MCQ 5
+
+Which is a potential drawback of cross-zone load balancing?
+
+A. Lower performance
+B. Higher latency
+C. Increased cost
+D. Reduced scalability
+
+✅ Answer: C
+
+MCQ 6
+
+Without cross-zone load balancing, traffic is distributed:
+
+A. Evenly across all AZs
+B. Only within the originating AZ
+C. Randomly
+D. Only to healthy instances in another region
+
+✅ Answer: B
+
+MCQ 7
+
+Cross-zone load balancing primarily improves which AWS design principle?
+
+A. Cost optimization
+B. Security
+C. High availability
+D. Operational excellence
+
+✅ Answer: C
+
+MCQ 8
+
+Which load balancer requires you to manually enable cross-zone load balancing?
+
+A. ALB
+B. GWLB
+C. NLB
+D. Route 53
+
+✅ Answer: C
+
+MCQ 9
+
+Cross-zone load balancing helps prevent which issue?
+
+A. Data loss
+B. AZ bottleneck
+C. IAM misconfiguration
+D. Security group failure
+
+✅ Answer: B
+
+MCQ 10
+
+Which scenario MOST benefits from cross-zone load balancing?
+
+A. Single-AZ deployment
+B. Stateless multi-AZ web application
+C. Offline batch processing
+D. Backup storage
+
+✅ Answer: B
