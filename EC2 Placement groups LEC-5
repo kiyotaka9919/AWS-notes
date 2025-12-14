@@ -1,0 +1,311 @@
+1. What are EC2 Placement Groups?
+
+Placement groups control how EC2 instances are placed on underlying hardware
+
+Used to:
+
+Reduce latency
+
+Increase network throughput
+
+Reduce correlated hardware failures
+
+Free of cost
+
+Used mainly for performance-sensitive workloads
+
+2. Default EC2 Placement (Without Placement Group)
+
+EC2 automatically spreads instances across hardware
+
+Minimizes correlated failures
+
+No control over instance proximity
+
+3. Types of Placement Groups
+
+AWS supports three placement strategies:
+
+Cluster
+
+Partition
+
+Spread
+
+🔹 A. Cluster Placement Group
+Definition
+
+Logical grouping of instances within a single Availability Zone
+
+Instances placed close together on the network
+
+Key Characteristics
+
+Very low latency
+
+Very high throughput
+
+High packets per second
+
+Uses high-bisection bandwidth network
+
+Important Exam Points
+
+Single AZ only
+
+Supports enhanced networking
+
+Best when:
+
+Majority of traffic is between instances
+
+Recommended to use same instance type
+
+Performance Limit
+
+10 Gbps per single flow (cluster)
+
+5 Gbps per single flow (non-cluster)
+
+Use Cases
+
+High-performance computing (HPC)
+
+Big data analytics
+
+Machine learning training
+
+Distributed computing
+
+🔹 B. Partition Placement Group
+Definition
+
+Instances divided into logical partitions
+
+Each partition runs on separate racks
+
+No two partitions share the same racks
+
+Key Characteristics
+
+Limits impact of hardware failure
+
+Each partition has:
+
+Independent power
+
+Independent networking
+
+Important Exam Points
+
+Can span multiple AZs in the same region
+
+Max 7 partitions per AZ
+
+Visibility into partitions (topology aware)
+
+Supports launching instances into a specific partition
+
+Use Cases
+
+Large distributed systems:
+
+HDFS
+
+HBase
+
+Cassandra
+
+Fault-tolerant replicated workloads
+
+🔹 C. Spread Placement Group
+Definition
+
+Each instance placed on distinct hardware
+
+Maximum separation between instances
+
+Key Characteristics
+
+Minimizes risk of simultaneous failures
+
+Best for small number of critical instances
+
+Types
+
+Rack-level spread
+
+Max 7 instances per AZ per group
+
+Can span multiple AZs
+
+Host-level spread
+
+Only available with AWS Outposts
+
+No instance limit
+
+Use Cases
+
+Critical applications
+
+Domain controllers
+
+Small but highly available workloads
+
+4. Placement Group Rules & Limitations (EXAM FAVORITES)
+
+Max 500 placement groups per region per account
+
+Placement group name must be unique per region
+
+❌ Cannot merge placement groups
+
+❌ Instance can belong to only one placement group
+
+❌ Spread groups not supported for Dedicated Instances
+
+Capacity Reservations:
+
+❌ Do NOT reserve capacity for spread or partition groups
+
+If instance is stopped and restarted:
+
+Still belongs to placement group
+
+Start may fail if capacity unavailable
+
+5. Sharing Placement Groups
+What is Sharing?
+
+Allows multiple AWS accounts to launch instances into same placement group
+
+Rules
+
+You must own the placement group
+
+Cannot reshare a shared placement group
+
+Requires AWS Organizations enabled
+
+You can only manage your own instances
+
+Cannot view instances owned by other accounts
+
+⭐ Quick Comparison Table
+Feature	Cluster	Partition	Spread
+AZ Scope	Single AZ	Multi-AZ	Multi-AZ
+Latency	Lowest	Low	Normal
+Fault Isolation	❌	✔	✔✔
+Max Instances	High	High	7 per AZ
+Best For	HPC	Big distributed apps	Critical small apps
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which placement group provides the lowest network latency?
+
+A. Spread
+B. Partition
+C. Cluster
+D. Default placement
+
+✅ Answer: C
+
+MCQ 2
+
+Which placement group type is BEST for HDFS or Cassandra?
+
+A. Cluster
+B. Spread
+C. Partition
+D. Default
+
+✅ Answer: C
+
+MCQ 3
+
+How many running instances are allowed per AZ in a spread placement group?
+
+A. Unlimited
+B. 10
+C. 7
+D. 500
+
+✅ Answer: C
+
+MCQ 4
+
+Which placement group spans only one Availability Zone?
+
+A. Spread
+B. Partition
+C. Cluster
+D. Host-level spread
+
+✅ Answer: C
+
+MCQ 5
+
+Which placement group minimizes the risk of simultaneous hardware failures for a small number of critical instances?
+
+A. Cluster
+B. Partition
+C. Spread
+D. Default
+
+✅ Answer: C
+
+MCQ 6
+
+Which statement is TRUE about partition placement groups?
+
+A. All partitions share the same rack
+B. Maximum 2 partitions per AZ
+C. Supports topology-aware applications
+D. Cannot span multiple AZs
+
+✅ Answer: C
+
+MCQ 7
+
+Can an EC2 instance belong to multiple placement groups?
+
+A. Yes
+B. Only for cluster
+C. Only for spread
+D. No
+
+✅ Answer: D
+
+MCQ 8
+
+Which placement group strategy offers 10 Gbps single-flow throughput?
+
+A. Spread
+B. Partition
+C. Cluster
+D. Default
+
+✅ Answer: C
+
+MCQ 9
+
+Which placement group type is supported on AWS Outposts only?
+
+A. Rack-level spread
+B. Host-level spread
+C. Partition
+D. Cluster
+
+✅ Answer: B
+
+MCQ 10
+
+Which of the following is FREE?
+
+A. Dedicated Hosts
+B. Placement Groups
+C. Capacity Reservations
+D. Elastic IPs
+
+✅ Answer: B
