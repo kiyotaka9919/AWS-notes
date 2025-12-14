@@ -1,0 +1,311 @@
+What is Elastic Load Balancing (ELB)?
+
+AWS service that distributes incoming traffic across multiple targets:
+
+EC2 instances
+
+Containers
+
+IP addresses
+
+Lambda (ALB only)
+
+Improves:
+
+Availability
+
+Scalability
+
+Performance
+
+Fully managed, scalable, and highly available
+
+Supports SSL/TLS encryption
+
+2. How ELB Works
+
+Client sends request
+
+Request reaches ELB (single entry point)
+
+ELB checks target health
+
+ELB forwards request to a healthy target
+
+Target processes request
+
+Response returned to client via ELB
+
+📌 Unhealthy targets are automatically removed
+
+3. Benefits of ELB
+
+High Availability – no single point of failure
+
+Better Performance – routes traffic efficiently
+
+Scalability – auto scales with traffic
+
+Cost Optimization – avoids over-provisioning
+
+Simplified Management – centralized traffic control
+
+4. Types of AWS Load Balancers (VERY IMPORTANT)
+
+AWS provides 4 types of load balancers:
+
+🔹 A. Classic Load Balancer (CLB)
+Key Points
+
+Legacy load balancer
+
+Operates at Layer 4 (TCP) and Layer 7 (HTTP/HTTPS)
+
+Simple load balancing
+
+❌ No advanced routing
+
+❌ No weighted target groups
+
+📌 Exam Tip:
+👉 Not recommended for new architectures
+
+🔹 B. Network Load Balancer (NLB)
+Layer
+
+Layer 4 (Transport layer)
+
+Protocols
+
+TCP
+
+UDP
+
+TLS
+
+Key Features
+
+Ultra-low latency
+
+High throughput
+
+Handles millions of requests per second
+
+Preserves client source IP
+
+Supports static IP / Elastic IP
+
+Use Cases
+
+Real-time applications
+
+Gaming
+
+Financial systems
+
+High-performance networking
+
+🔹 C. Application Load Balancer (ALB)
+Layer
+
+Layer 7 (Application layer)
+
+Protocols
+
+HTTP
+
+HTTPS
+
+Key Features
+
+Content-based routing
+
+Path-based routing (/api, /images)
+
+Host-based routing (app.example.com)
+
+Header-based routing
+
+Session stickiness
+
+Supports Lambda targets
+
+Ideal for microservices
+
+Unique Feature
+
+✅ Rules (only ALB has rules)
+
+Use Cases
+
+Web applications
+
+Microservices
+
+Containers
+
+REST APIs
+
+🔹 D. Gateway Load Balancer (GWLB)
+Layer
+
+Layer 3 (Network layer)
+
+Purpose
+
+Load balancing third-party virtual appliances
+
+Examples
+
+Firewalls
+
+IDS / IPS
+
+Deep Packet Inspection (DPI)
+
+Security monitoring tools
+
+Key Components
+
+Gateway Load Balancer
+
+Target Groups
+
+Listeners
+
+Virtual Appliances
+
+Endpoints
+
+📌 Exam Tip:
+👉 Used for security & traffic inspection, not web apps
+
+5. ELB Comparison Table (EXAM GOLD)
+Feature	CLB	ALB	NLB	GWLB
+OSI Layer	L4/L7	L7	L4	L3
+Protocols	TCP/HTTP	HTTP/HTTPS	TCP/UDP/TLS	IP
+Advanced Routing	❌	✔	❌	❌
+Static IP	❌	❌	✔	✔
+Source IP preserved	❌	❌	✔	✔
+Lambda support	❌	✔	❌	❌
+Security appliances	❌	❌	❌	✔
+6. One-Line Exam Summary
+
+ALB → Web apps & microservices (Layer 7)
+
+NLB → Ultra-fast, low-latency traffic (Layer 4)
+
+GWLB → Firewalls & security appliances (Layer 3)
+
+CLB → Legacy, avoid in exam answers
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which load balancer supports path-based routing?
+
+A. CLB
+B. NLB
+C. ALB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 2
+
+Which load balancer operates at Layer 4 and preserves client IP?
+
+A. ALB
+B. CLB
+C. NLB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 3
+
+Which load balancer is BEST for microservices architecture?
+
+A. CLB
+B. ALB
+C. NLB
+D. GWLB
+
+✅ Answer: B
+
+MCQ 4
+
+Which load balancer is designed for firewalls and IDS/IPS?
+
+A. ALB
+B. NLB
+C. CLB
+D. GWLB
+
+✅ Answer: D
+
+MCQ 5
+
+Which OSI layer does Application Load Balancer operate on?
+
+A. Layer 3
+B. Layer 4
+C. Layer 5
+D. Layer 7
+
+✅ Answer: D
+
+MCQ 6
+
+Which load balancer supports Lambda as a target?
+
+A. CLB
+B. ALB
+C. NLB
+D. GWLB
+
+✅ Answer: B
+
+MCQ 7
+
+Which load balancer is optimized for high throughput and low latency?
+
+A. ALB
+B. CLB
+C. NLB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 8
+
+Which feature is UNIQUE to ALB?
+
+A. Static IP
+B. UDP support
+C. Routing rules
+D. Source IP preservation
+
+✅ Answer: C
+
+MCQ 9
+
+Which load balancer should be avoided for new AWS architectures?
+
+A. ALB
+B. NLB
+C. GWLB
+D. CLB
+
+✅ Answer: D
+
+MCQ 10
+
+ELB automatically removes which targets?
+
+A. Idle targets
+B. Stopped instances
+C. Unhealthy targets
+D. New targets
+
+✅ Answer: C
