@@ -1,0 +1,272 @@
+1. Overview: EC2 Network Interface Options
+
+EC2 instances support different Network Interface Card (NIC) options based on performance needs:
+
+Performance order (lowest → highest):
+
+ENI – Elastic Network Interface (basic)
+
+ENA – Elastic Network Adapter (high performance)
+
+EFA – Elastic Fabric Adapter (HPC / ML)
+
+2. Elastic Network Interface (ENI)
+What is ENI?
+
+A virtual network card in a VPC
+
+Default & basic networking option for EC2
+
+ENI Capabilities
+
+1 primary private IPv4 address
+
+Multiple secondary private IPv4 addresses
+
+1 Elastic IP per private IPv4
+
+IPv6 addresses
+
+One or more security groups
+
+MAC address
+
+Key Exam Points
+
+Supported on ALL EC2 instance types
+
+No special performance features
+
+Used when no high-performance networking is required
+
+Use Cases
+
+Web servers
+
+Application servers
+
+Database servers
+
+General workloads
+
+3. Elastic Network Adapter (ENA)
+What is ENA?
+
+A high-performance network interface
+
+Improves over ENI
+
+Key Features
+
+Uses SR-IOV (Single Root I/O Virtualization)
+
+Provides:
+
+Higher throughput
+
+Higher packets per second (PPS)
+
+Lower latency
+
+Lower CPU utilization
+
+Supports up to 100 Gbps
+
+ENA Implementations
+
+AWS Elastic Network Adapter
+
+Intel 82599 Virtual Function
+
+Key Exam Points
+
+Supported only on specific EC2 instance types (HVM)
+
+Traffic is routable
+
+Best for high bandwidth & low inter-instance latency
+
+Use Cases
+
+High-performance web services
+
+Distributed applications
+
+Latency-sensitive workloads
+
+4. Elastic Fabric Adapter (EFA)
+What is EFA?
+
+Specialized network adapter for:
+
+High Performance Computing (HPC)
+
+Machine Learning
+
+Built on top of ENA
+
+Unique Feature: OS Bypass
+
+Allows applications to communicate directly with NIC hardware
+
+Bypasses the instance kernel
+
+Provides ultra-low latency
+
+Modes of Operation
+1. OS Bypass Mode
+
+❌ Not routable
+
+❌ Traffic limited to single subnet
+
+✔ Ultra-low latency
+
+2. Normal IP Mode
+
+✔ Routable
+
+✔ Can communicate across subnets
+
+Behaves like ENA
+
+Key Exam Points
+
+Used for tightly coupled applications
+
+Only networking option with OS bypass
+
+Use Cases
+
+HPC clusters
+
+ML training
+
+Scientific simulations
+
+5. ENA vs EFA (EXAM FAVORITE COMPARISON)
+Feature	ENA	EFA
+Purpose	High-performance networking	HPC / ML
+SR-IOV	✔	✔
+OS Bypass	❌	✔
+Routable traffic	✔	❌ (OS bypass mode)
+Subnet restriction	❌	✔ (OS bypass mode)
+Typical latency	Low	Ultra-low
+6. Quick Decision Guide (Exam-Ready)
+
+Basic networking? → ENI
+
+High bandwidth & low latency? → ENA
+
+HPC / ML / tightly coupled apps? → EFA
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which is the default network interface for EC2 instances?
+
+A. ENA
+B. EFA
+C. ENI
+D. SR-IOV
+
+✅ Answer: C
+
+MCQ 2
+
+Which network interface provides OS bypass capability?
+
+A. ENI
+B. ENA
+C. EFA
+D. VPC Peering
+
+✅ Answer: C
+
+MCQ 3
+
+A workload requires high bandwidth and low inter-instance latency but does NOT require HPC features. Which should you use?
+
+A. ENI
+B. ENA
+C. EFA
+D. Elastic IP
+
+✅ Answer: B
+
+MCQ 4
+
+Which technology is used by ENA to improve performance?
+
+A. NAT
+B. VXLAN
+C. SR-IOV
+D. TCP offload
+
+✅ Answer: C
+
+MCQ 5
+
+In which scenario is EFA most appropriate?
+
+A. Web application
+B. Relational database
+C. Machine learning training cluster
+D. Static website hosting
+
+✅ Answer: C
+
+MCQ 6
+
+What is a limitation of EFA OS bypass mode?
+
+A. High latency
+B. Traffic not routable
+C. Limited bandwidth
+D. Requires NAT Gateway
+
+✅ Answer: B
+
+MCQ 7
+
+Which network interface is supported on all EC2 instance types?
+
+A. ENA
+B. EFA
+C. ENI
+D. SR-IOV
+
+✅ Answer: C
+
+MCQ 8
+
+Which adapter can achieve up to 100 Gbps network speed?
+
+A. ENI
+B. ENA
+C. EFA only
+D. Elastic IP
+
+✅ Answer: B
+
+MCQ 9
+
+Traffic using EFA OS bypass mode must stay within:
+
+A. Same VPC
+B. Same AZ
+C. Same subnet
+D. Same region
+
+✅ Answer: C
+
+MCQ 10
+
+Which statement is TRUE?
+
+A. ENI supports OS bypass
+B. ENA is slower than ENI
+C. EFA is built on ENA
+D. EFA traffic is always routable
+
+✅ Answer: C
