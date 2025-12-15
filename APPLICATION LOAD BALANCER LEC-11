@@ -1,0 +1,283 @@
+. What is an Application Load Balancer (ALB)?
+
+Operates at OSI Layer 7 (Application layer)
+
+Acts as a single entry point for client requests
+
+Distributes traffic across multiple AZs
+
+Requires at least 2 Availability Zones
+
+Ideal for:
+
+Web applications
+
+Microservices
+
+Containers (ECS / EKS)
+
+APIs
+
+4. Core ALB Components
+A. Listener
+
+Listens on a protocol + port (HTTP/80, HTTPS/443)
+
+Evaluates rules in priority order
+
+B. Rules (ALB-ONLY FEATURE)
+
+Each rule has:
+
+Priority
+
+Conditions
+
+Actions
+
+Conditions can be based on:
+
+Path (/video, /web)
+
+Hostname (api.example.com)
+
+Headers
+
+Each listener must have a default rule
+
+📌 Only ALB supports rules
+
+C. Target Groups
+
+Logical group of targets:
+
+EC2
+
+IPs
+
+Containers
+
+Lambda
+
+Health checks are per target group
+
+Targets can belong to multiple target groups
+
+5. How ALB Routing Works
+
+Client sends request
+
+ALB listener receives request
+
+Rules evaluated (priority order)
+
+Matching rule forwards traffic
+
+Target selected from target group
+
+Target processes request
+
+Response returned to client
+
+6. Routing Algorithms
+
+Round-Robin (default)
+
+Least Outstanding Requests
+
+Routes to target with fewest active requests
+
+7. Path-Based Routing (VERY IMPORTANT)
+
+Example:
+
+/video → Video Target Group
+
+/web → Web Target Group
+
+Used heavily in:
+
+Microservices
+
+API routing
+
+Multi-application ALB setups
+
+8. Session Management (Exam Favorite)
+Option 1: Sticky Sessions (Cookies)
+
+Client stays bound to same target
+
+Risk: session lost if instance fails
+
+Option 2: ElastiCache (Recommended)
+
+Session data stored in Redis
+
+ALB can route to any instance
+
+More resilient architecture
+
+Exam prefers ElastiCache over sticky sessions
+
+📌 Exam Tip:
+If question mentions high availability + sessions → ElastiCache
+
+9. ALB Integrations (EXAM SCENARIOS)
+A. Route 53
+
+Used for failover routing
+
+Active-Passive architectures
+
+B. CloudFront
+
+ALB can be a CloudFront origin
+
+Improves global performance
+
+C. AWS Global Accelerator
+
+Provides static IPs
+
+Routes traffic over AWS global network
+
+Improves performance for global users
+
+ALB can be an endpoint
+
+📌 Exam hint:
+Global users + low latency → Global Accelerator + ALB
+
+D. ECS / Fargate
+
+ALB commonly used with:
+
+ECS services
+
+Fargate tasks
+
+Dynamic target registration supported
+
+10. When to Choose ALB vs NLB (Exam Classic)
+Requirement	Choose
+HTTP / HTTPS	ALB
+Path-based routing	ALB
+Microservices	ALB
+Static IP	NLB
+UDP	NLB
+Millions of TPS	NLB
+11. One-Line Exam Summary
+
+Application Load Balancer operates at Layer 7 and supports content-based routing, rules, target groups, and deep integration with modern AWS services.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which load balancer operates at Layer 7?
+
+A. NLB
+B. CLB
+C. ALB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 2
+
+Which feature is unique to Application Load Balancer?
+
+A. Static IP
+B. UDP support
+C. Routing rules
+D. TLS offloading
+
+✅ Answer: C
+
+MCQ 3
+
+Which load balancer should you use for path-based routing?
+
+A. NLB
+B. ALB
+C. GWLB
+D. Route 53
+
+✅ Answer: B
+
+MCQ 4
+
+An application needs HTTP routing + microservices support. Best choice?
+
+A. CLB
+B. NLB
+C. ALB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 5
+
+Which ALB component evaluates requests and forwards them?
+
+A. Target group
+B. Listener
+C. Security group
+D. Subnet
+
+✅ Answer: B
+
+MCQ 6
+
+Which routing algorithm sends traffic to the target with the fewest active requests?
+
+A. Random
+B. Round Robin
+C. Least Outstanding Requests
+D. Weighted routing
+
+✅ Answer: C
+
+MCQ 7
+
+For high availability session management, which is BEST?
+
+A. Sticky sessions
+B. Local memory
+C. ElastiCache Redis
+D. Application cookies
+
+✅ Answer: C
+
+MCQ 8
+
+Which service provides static IPs + global performance for ALB?
+
+A. CloudFront
+B. Route 53
+C. Global Accelerator
+D. Direct Connect
+
+✅ Answer: C
+
+MCQ 9
+
+An ALB must be deployed across:
+
+A. One AZ
+B. One region
+C. At least two AZs
+D. One subnet
+
+✅ Answer: C
+
+MCQ 10
+
+Which target type is supported by ALB but NOT by NLB?
+
+A. EC2
+B. IP address
+C. Lambda
+D. Container
+
+✅ Answer: C
