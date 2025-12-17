@@ -1,0 +1,265 @@
+What is a Network Load Balancer (NLB)?
+
+AWS Elastic Load Balancer that operates at OSI Layer 4 (Transport layer)
+
+Designed for:
+
+Ultra-high performance
+
+Ultra-low latency
+
+Can handle millions of requests per second
+
+Works with:
+
+TCP
+
+TLS
+
+UDP
+
+📌 Exam Trigger:
+If the question mentions Layer 4, TCP, UDP, TLS, static IP, or extreme performance → think NLB
+
+2. Key Differences: ALB vs NLB (EXAM CLASSIC)
+Feature	ALB	NLB
+OSI Layer	Layer 7	Layer 4
+Protocols	HTTP / HTTPS	TCP / TLS / UDP
+Routing	Path / Host based	IP + Port based
+Performance	High	Extremely High
+Static IP	❌	✔
+Cookies	✔	❌
+Source IP preserved	❌	✔
+3. How NLB Works (Core Concepts)
+Load Balancer Nodes
+
+When you enable an AZ, NLB creates a node in that AZ
+
+Each node routes traffic to targets
+
+Cross-Zone Load Balancing
+
+Disabled by default
+
+❌ Without cross-zone:
+
+Each NLB node sends traffic only to targets in its AZ
+
+✔ With cross-zone enabled:
+
+Each node sends traffic to targets in all AZs
+
+📌 Exam Tip:
+NLB + uneven traffic + multi-AZ → Enable cross-zone
+
+4. Traffic Routing Logic
+TCP / TLS Traffic
+
+Uses flow hash algorithm based on:
+
+Protocol
+
+Source IP & Port
+
+Destination IP & Port
+
+Supports:
+
+Long-lived TCP connections
+
+WebSocket applications
+
+UDP Traffic
+
+Same flow (same source IP + port) → always routed to the same target
+
+Different UDP flows → can go to different targets
+
+📌 Exam Point:
+UDP is connectionless, but NLB still ensures flow consistency
+
+5. TLS with Network Load Balancer
+
+NLB supports TLS listeners
+
+Requires:
+
+At least one server certificate
+
+Can:
+
+Terminate TLS
+
+OR Pass-through encrypted traffic (end-to-end encryption)
+
+📌 Exam Scenario:
+If encryption must stay intact until the backend target → NLB
+
+6. Static IP & Elastic IP Support
+
+NLB supports:
+
+Static IP addresses
+
+Elastic IPs (one per subnet)
+
+Configured using subnet mappings
+
+📌 Exam GOLD Rule:
+If the question says “static IP required for load balancer” → NLB
+
+7. Common Architecture Scenarios (EXAM FAVORITES)
+✅ On-Premises to AWS
+
+Distribute TCP traffic from on-prem servers
+
+Use NLB for predictable IPs
+
+✅ Private SaaS (No Internet)
+
+NLB + VPC Endpoint Service
+
+Traffic stays inside AWS network
+
+✅ Firewall / Whitelisted IPs
+
+NLB with Elastic IP
+
+Firewall allows only known IPs
+
+✅ Cross-VPC / Cross-Account
+
+Secure service-to-service communication
+
+TLS pass-through
+
+8. When to Choose Network Load Balancer
+
+Choose NLB when you need:
+
+TCP / UDP traffic
+
+Static or Elastic IPs
+
+Millions of requests per second
+
+Low latency
+
+Preserve client source IP
+
+TLS pass-through or large-scale TLS termination
+
+9. One-Line Exam Summary
+
+Network Load Balancer is a Layer-4, ultra-fast load balancer that supports TCP, TLS, and UDP with static IPs and source-IP preservation.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which load balancer operates at OSI Layer 4?
+
+A. ALB
+B. CLB
+C. NLB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 2
+
+An application requires static IP addresses and TCP traffic. Which load balancer should be used?
+
+A. ALB
+B. NLB
+C. CLB
+D. Route 53
+
+✅ Answer: B
+
+MCQ 3
+
+Which protocol is supported by Network Load Balancer but not by Application Load Balancer?
+
+A. HTTP
+B. HTTPS
+C. UDP
+D. WebSocket
+
+✅ Answer: C
+
+MCQ 4
+
+Which load balancer preserves the client source IP address?
+
+A. ALB
+B. CLB
+C. NLB
+D. CloudFront
+
+✅ Answer: C
+
+MCQ 5
+
+Cross-zone load balancing for NLB is:
+
+A. Enabled by default
+B. Not supported
+C. Disabled by default
+D. Mandatory
+
+✅ Answer: C
+
+MCQ 6
+
+Which load balancer is BEST for millions of requests per second with low latency?
+
+A. ALB
+B. NLB
+C. GWLB
+D. Classic
+
+✅ Answer: B
+
+MCQ 7
+
+Which load balancer should be used for UDP-based applications?
+
+A. ALB
+B. CLB
+C. NLB
+D. GWLB
+
+✅ Answer: C
+
+MCQ 8
+
+A security team needs a load balancer with whitelisted IP addresses on firewalls. What should they use?
+
+A. ALB
+B. NLB with Elastic IP
+C. CloudFront
+D. Route 53
+
+✅ Answer: B
+
+MCQ 9
+
+Which NLB feature allows end-to-end encryption without decryption at the load balancer?
+
+A. Sticky sessions
+B. TLS pass-through
+C. Path-based routing
+D. Cookies
+
+✅ Answer: B
+
+MCQ 10
+
+Which routing method does an NLB use?
+
+A. Path-based
+B. Cookie-based
+C. IP and Port-based
+D. Header-based
+
+✅ Answer: C
