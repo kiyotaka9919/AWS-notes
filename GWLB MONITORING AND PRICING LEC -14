@@ -1,0 +1,252 @@
+1️⃣ Monitoring Gateway Load Balancer
+🔹 CloudWatch Integration
+
+Elastic Load Balancing publishes metrics to Amazon CloudWatch
+
+Metrics are available for:
+
+Gateway Load Balancer
+
+Registered targets (virtual appliances)
+
+Metrics are stored as time-series data
+
+Each metric has:
+
+Timestamp
+
+Optional unit
+
+📌 Exam Point:
+CloudWatch is the primary monitoring service for GWLB.
+
+2️⃣ When Are Metrics Published?
+
+Metrics are published ONLY when traffic is flowing
+
+Metrics interval: every 60 seconds
+
+❌ If no traffic, no metrics are reported
+
+📌 This is commonly tested in exam scenarios.
+
+3️⃣ Important GWLB CloudWatch Metrics (VERY IMPORTANT)
+✅ ActiveFlowCount
+
+Total number of concurrent active flows
+
+Indicates current traffic load
+
+✅ NewFlowCount
+
+Number of new connections/flows created in a time period
+
+✅ HealthyHostCount
+
+Number of healthy virtual appliance targets
+
+✅ UnHealthyHostCount
+
+Number of unhealthy targets
+
+Helps detect appliance failures
+
+✅ ProcessedBytes
+
+Total bytes processed by GWLB
+
+Includes:
+
+Incoming traffic
+
+Outgoing traffic
+
+❌ Does NOT include health check traffic
+
+✅ ConsumedLCUs
+
+Number of Load Balancer Capacity Units (LCUs) used
+
+Directly impacts billing
+
+4️⃣ What Is a Gateway Load Balancer Capacity Unit (GLCU)?
+
+GLCU is used to measure capacity usage
+
+Based on:
+
+New flows per second
+
+Active flows
+
+Processed bytes
+
+Example (Exam Style)
+
+100 new connections/sec
+
+Each lasting 4 minutes
+
+≈ 24,000 active connections
+
+≈ 0.4 GLCU
+
+5️⃣ GWLB Pricing Model (High-Level)
+💰 You Pay For:
+
+GWLB running hours
+
+GLCU usage per hour
+
+📌 Pricing varies by region.
+
+🔹 Example (Mumbai Region – Illustration)
+
+~$0.01 per GWLB hour
+
+~$0 per GLCU hour (example only)
+
+Always check AWS pricing page for exact rates
+
+6️⃣ Free Tier
+
+750 GWLB hours per month
+
+Applies under AWS Free Tier
+
+GLCU usage may still apply beyond limits
+
+7️⃣ Cost Optimization Tips (Exam Perspective)
+
+Reduce:
+
+Unnecessary traffic
+
+Idle appliances
+
+Use:
+
+Auto Scaling Groups
+
+Health checks
+
+Monitor:
+
+ActiveFlowCount
+
+ConsumedLCUs
+
+8️⃣ One-Line Exam Summary
+
+Gateway Load Balancer monitoring is done using CloudWatch metrics published every 60 seconds only when traffic flows, and pricing is based on running hours and GLCU consumption.
+
+❓ Predicted MCQs (SAA-C03)
+MCQ 1
+
+Which AWS service is used to monitor Gateway Load Balancer metrics?
+
+A. CloudTrail
+B. CloudWatch
+C. AWS Config
+D. X-Ray
+
+✅ Answer: B
+
+MCQ 2
+
+When does GWLB publish metrics to CloudWatch?
+
+A. Every minute regardless of traffic
+B. Only when traffic flows
+C. Every 5 minutes
+D. Only during failures
+
+✅ Answer: B
+
+MCQ 3
+
+What is ActiveFlowCount?
+
+A. Total bytes processed
+B. Number of new connections
+C. Number of concurrent active flows
+D. Number of unhealthy targets
+
+✅ Answer: C
+
+MCQ 4
+
+Which metric helps you identify unhealthy security appliances?
+
+A. NewFlowCount
+B. ProcessedBytes
+C. UnHealthyHostCount
+D. ActiveFlowCount
+
+✅ Answer: C
+
+MCQ 5
+
+Which metric directly impacts GWLB billing?
+
+A. HealthyHostCount
+B. ConsumedLCUs
+C. NewFlowCount
+D. UnHealthyHostCount
+
+✅ Answer: B
+
+MCQ 6
+
+Which traffic is excluded from ProcessedBytes?
+
+A. Client traffic
+B. Target traffic
+C. Health check traffic
+D. Internet traffic
+
+✅ Answer: C
+
+MCQ 7
+
+GWLB metrics are reported at what interval?
+
+A. 30 seconds
+B. 1 minute
+C. 5 minutes
+D. 15 minutes
+
+✅ Answer: B
+
+MCQ 8
+
+What does GLCU stand for?
+
+A. Gateway Load Compute Unit
+B. Gateway Load Capacity Unit
+C. Global Load Control Unit
+D. Gateway Latency Control Unit
+
+✅ Answer: B
+
+MCQ 9
+
+Which factor does NOT affect GLCU calculation?
+
+A. Active connections
+B. New flows
+C. Processed bytes
+D. Availability Zone count
+
+✅ Answer: D
+
+MCQ 10
+
+Which AWS benefit helps reduce GWLB cost automatically?
+
+A. Elastic IP
+B. CloudFront
+C. Auto Scaling Groups
+D. IAM
+
+✅ Answer: C
