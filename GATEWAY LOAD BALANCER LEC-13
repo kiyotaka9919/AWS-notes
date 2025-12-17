@@ -1,0 +1,302 @@
+1. What is Gateway Load Balancer (GWLB)?
+
+AWS-managed load balancer designed to deploy and scale third-party virtual appliances
+
+Used mainly for network traffic inspection
+
+Operates at OSI Layer 3 (Network layer)
+
+Works as a transparent network gateway
+
+No changes required to application architecture
+
+Virtual Appliances Examples
+
+Firewalls
+
+IDS / IPS
+
+Deep Packet Inspection (DPI)
+
+Network monitoring tools
+
+📌 Exam Trigger:
+If the question mentions firewall, IDS/IPS, DPI, security inspection, virtual appliances → GWLB
+
+2. Key Characteristics
+
+Uses GENEVE protocol
+
+Port: UDP 6081
+
+Traffic flows privately over AWS network
+
+Uses Gateway Load Balancer Endpoints
+
+Powered by AWS PrivateLink
+
+Traffic is never exposed to the internet
+
+3. How Gateway Load Balancer Works (High Level)
+Normal ALB / NLB Flow
+
+Client → Load Balancer → Application
+
+GWLB Flow
+
+Client → GWLB Endpoint → GWLB → Security Appliance
+→ GWLB → Application
+(or traffic dropped if rejected)
+
+📌 All traffic is inspected BEFORE reaching applications
+
+4. GWLB Architecture (Exam Favorite)
+Service Provider VPC
+
+Hosts:
+
+Gateway Load Balancer
+
+Security appliance EC2 instances
+
+Appliances registered in GWLB target group
+
+Service Consumer VPC
+
+Hosts:
+
+Application servers
+
+GWLB Endpoint
+
+Route tables force all ingress & egress traffic through GWLB
+
+5. Traffic Flow (Step-by-Step)
+Ingress (Internet → App)
+
+Traffic enters via Internet Gateway
+
+Route table sends traffic to GWLB Endpoint
+
+Traffic forwarded to GWLB
+
+GWLB sends traffic to security appliance
+
+Appliance:
+
+Allows → traffic forwarded
+
+Denies → traffic dropped
+
+Allowed traffic reaches application server
+
+Egress (App → Internet)
+
+App sends traffic
+
+Route table sends traffic to GWLB Endpoint
+
+Inspected by appliance
+
+Forwarded to Internet Gateway
+
+6. Important Prerequisites
+
+At least two subnets per AZ in consumer VPC:
+
+One for application servers
+
+One for GWLB endpoint
+
+GWLB and appliance targets:
+
+Can be in same subnet
+
+Security appliance instances:
+
+Must allow UDP 6081
+
+Subnets cannot be shared from another account
+
+7. Key Features
+✅ Auto Scaling
+
+Works with Auto Scaling Groups
+
+Scales appliances automatically based on traffic
+
+✅ High Availability
+
+Routes only to healthy appliances
+
+Failed appliances automatically bypassed
+
+✅ Marketplace Integration
+
+Easily deploy appliances from AWS Marketplace
+
+✅ Private Connectivity
+
+Uses PrivateLink
+
+Secure, private, no internet exposure
+
+8. Common GWLB Use Cases (EXAM HEAVY)
+🔐 Centralized Security
+
+One appliance fleet
+
+Used across:
+
+Multiple VPCs
+
+Multiple AWS accounts
+
+🛡️ Defense-in-Depth
+
+Add third-party firewalls
+
+IDS / IPS
+
+Advanced inspection
+
+📊 Traffic Monitoring & Analytics
+
+Logging
+
+Compliance
+
+Visibility
+
+⚙️ Infrastructure Simplification
+
+Replaces multiple routing + load balancing layers
+
+Cleaner CloudFormation templates
+
+9. When to Choose GWLB (Exam Rule)
+
+Choose Gateway Load Balancer when:
+
+You must inspect all network traffic
+
+You use third-party security appliances
+
+You need transparent inline traffic inspection
+
+You want centralized security across VPCs
+
+10. One-Line Exam Summary
+
+Gateway Load Balancer is a Layer-3 load balancer used to transparently deploy, scale, and manage third-party network security appliances using PrivateLink and GENEVE.
+
+✅ PREDICTED MCQs (SAA-C03 – HIGH PROBABILITY)
+MCQ 1
+
+Which AWS load balancer operates at OSI Layer 3?
+
+A. ALB
+B. NLB
+C. GWLB
+D. CLB
+
+✅ Answer: C
+
+MCQ 2
+
+Which protocol does Gateway Load Balancer use?
+
+A. TCP
+B. TLS
+C. GENEVE
+D. HTTP
+
+✅ Answer: C
+
+MCQ 3
+
+Which port must be allowed for GWLB appliances?
+
+A. TCP 443
+B. TCP 80
+C. UDP 6081
+D. UDP 53
+
+✅ Answer: C
+
+MCQ 4
+
+Which use case BEST fits Gateway Load Balancer?
+
+A. Path-based routing
+B. Static website hosting
+C. Firewall traffic inspection
+D. API Gateway integration
+
+✅ Answer: C
+
+MCQ 5
+
+Which AWS feature provides private connectivity for GWLB?
+
+A. VPC Peering
+B. Transit Gateway
+C. PrivateLink
+D. Direct Connect
+
+✅ Answer: C
+
+MCQ 6
+
+Which component connects application VPCs to GWLB?
+
+A. NAT Gateway
+B. Internet Gateway
+C. GWLB Endpoint
+D. Route 53
+
+✅ Answer: C
+
+MCQ 7
+
+Where are security appliances deployed?
+
+A. Consumer VPC
+B. Service Provider VPC
+C. Edge location
+D. CloudFront
+
+✅ Answer: B
+
+MCQ 8
+
+Which AWS service helps auto-scale GWLB appliances?
+
+A. Lambda
+B. Auto Scaling Groups
+C. CloudWatch Events
+D. ECS
+
+✅ Answer: B
+
+MCQ 9
+
+Which load balancer is BEST for IDS/IPS deployment?
+
+A. ALB
+B. NLB
+C. GWLB
+D. CLB
+
+✅ Answer: C
+
+MCQ 10
+
+Gateway Load Balancer traffic is:
+
+A. Exposed to the internet
+B. Encrypted with HTTPS only
+C. Routed over AWS private network
+D. Limited to one AZ
+
+✅ Answer: C
